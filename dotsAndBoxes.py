@@ -1,12 +1,11 @@
+from common import *
+
 import collections
 import random
 import copy
 
 DirecLinks = collections.namedtuple("Links", "horz vert")
-Point = collections.namedtuple("Point", "x y")
 
-class MoveException(Exception):
-    pass
 
 class GameState:
     def __init__(self, size):
