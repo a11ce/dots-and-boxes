@@ -110,12 +110,17 @@ class GameState:
                 pass
             print()
         
-    #def possibleMoves(game):
-    #    possMoves = []
-    #    for link in gameState.links:
-    #        if not link.isSet:
-    #            possMoves.append(link)
-
+    def possibleMoves(self):
+        possMoves = []
+        for ori in range(len(self.links)):
+            
+            for x in range(len(self.links[ori])):
+                for y in range(len(self.links[ori][x])):
+                    #if link == False:
+                    #print(ori)
+                    if self.links[ori][x][y] == False:
+                        possMoves.append((ori,Point(x,y)))
+        return possMoves
     def boardScore(self):
         sum = 0
         for row in self.boxes:
@@ -127,20 +132,18 @@ if __name__ == "__main__":
     testGame = GameState(4)
 
     curPlayer = 1
-    for _ in range(100):
-        try:
-            
-            madeBox = testGame.applyMove(random.randint(0,1), Point(random.randint(0,2),random.randint(0,2)),curPlayer)
-            if not madeBox:
-                curPlayer = int(not curPlayer)
-            testGame.printBoard()
-            print(testGame.boardScore())
-            input()
-        except MoveException:
-            pass
-
-
-    testGame.printBoard()
+    for _ in range(24):
+        
+        poss = testGame.possibleMoves()
+        choice = random.choice(poss)
+        madeBox = testGame.applyMove(choice[0],choice[1],curPlayer)
+        if not madeBox:
+            curPlayer = int(not curPlayer)
+        testGame.printBoard()
+        print(testGame.boardScore())
+        print(testGame.possibleMoves())
+        #input()
+        
 
     print("SHOULD NOT contain X")
     testGame = GameState(2)
@@ -160,4 +163,14 @@ if __name__ == "__main__":
     testTwo.applyMove(0, Point(0,1))
     testTwo.printBoard()
     print("////")
+    testGame.printBoard()
+
+    testGame = GameState(4)
+    testGame.applyMove(1, Point(0,1))
+    testGame.applyMove(1, Point(0,2))
+    testGame.applyMove(0, Point(2,2))
+    testGame.applyMove(0, Point(2,1))
+    testGame.applyMove(0, Point(2,0))
+    testGame.applyMove(1, Point(1,0))
+    testGame.applyMove(1, Point(1,3))
     testGame.printBoard()
