@@ -1,18 +1,19 @@
 from common import *
 
 import dotsAndBoxes
+from randomAI import RandomAI
 
 import random
 import copy
 
 def main():
     testGame = dotsAndBoxes.GameState(4)
+    randomizer = RandomAI()
     
     curPlayer = 1
     for _ in range(24):
-            
-        poss = testGame.possibleMoves()
-        choice = random.choice(poss)
+
+        choice = randomizer.nextMove(testGame)
         madeBox = testGame.applyMove(choice[0],choice[1],curPlayer)
         if not madeBox:
             curPlayer = int(not curPlayer)
